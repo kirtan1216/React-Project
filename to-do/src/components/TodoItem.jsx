@@ -1,4 +1,5 @@
 import React from "react";
+import { MdAddTask } from "react-icons/md";
 
 function TodoItem({ todoName, todoDate, onDeleteClick }) {
   return (
@@ -11,7 +12,7 @@ function TodoItem({ todoName, todoDate, onDeleteClick }) {
           className="btn btn-outline-danger kg-button"
           onClick={() => onDeleteClick(todoName)}
         >
-          Delete
+          <MdAddTask />
         </button>
       </div>
     </div>

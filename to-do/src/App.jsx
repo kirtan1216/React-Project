@@ -8,7 +8,6 @@ import WelcomeMessage from "./components/WelcomeMessage";
 function App() {
   const [todoItems, settodoItems] = useState([]);
   const handleNewItem = (itemName, itemDueDate) => {
-    console.log(`New item added: ${itemName} Date:${itemDueDate}`);
     const newTodoItem = [
       ...todoItems,
       { name: itemName, dueDate: itemDueDate },
@@ -19,8 +18,6 @@ function App() {
   const handleDeleteItem = (todoItemName) => {
     const newTodoItem = todoItems.filter((item) => item.name !== todoItemName);
     settodoItems(newTodoItem);
-
-    console.log(`Item deleted ${todoItemName}`);
   };
 
   return (

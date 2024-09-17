@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { MdAddToPhotos } from "react-icons/md";
 
 function AddDetails({ onNewItem }) {
-  const [todoName, setTodoName] = useState();
-  const [dueDate, setDueDate] = useState();
+  const [todoName, setTodoName] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   const handleNmaeChange = (event) => {
     setTodoName(event.target.value);
@@ -40,7 +41,7 @@ function AddDetails({ onNewItem }) {
             className="btn btn-outline-success kg-button"
             onClick={handleAddButtonClicked}
           >
-            Add
+            <MdAddToPhotos />
           </button>
         </div>
       </div>
