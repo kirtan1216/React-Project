@@ -1,0 +1,43 @@
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.doc {
+  max-width: 90%;
+  margin: auto;
+  padding: 25px;
+  background-color: #1d1d1d;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+h1 {
+  text-align: center;
+  color: #ffde59;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #ffde59;
+}
+
+section {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #cccccc;
+  line-height: 1.7;
+}
+
+pre {
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  color: #f0f0f0;
+  overflow-x: auto;
+}

@@ -1,0 +1,114 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: 
+  /* radial-gradient(circle at 10% 20%, #3f64a0 40%, transparent 60%), 
+  radial-gradient(circle at 90% 40%, #75393f 40%, transparent 60%),
+  radial-gradient(circle at 50% 80%, #21483c 40%, transparent 60%), 
+  radial-gradient(circle at 80% 70%, #783030 40%, transparent 60%), 
+  radial-gradient(circle at 30% 50%, #512671 40%, transparent 60%); */
+  
+  
+              radial-gradient(circle at 10% 20%, #3f64a0 30%, transparent 40%), 
+              radial-gradient(circle at 90% 40%, #75393f 30%, transparent 40%),
+              radial-gradient(circle at 50% 80%, #21483c 30%, transparent 40%), 
+              radial-gradient(circle at 80% 70%, #783030 30%, transparent 40%), 
+              radial-gradient(circle at 30% 50%, #512671 30%, transparent 40%);
+  background-color: #6b6060; 
+  background-blend-mode: overlay; 
+  animation: gradientShift 5s ease-in-out infinite;
+  background-size: 300% 300%; 
+  background-position: 0% 0%;
+}
+
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0%, 50% 50%;
+  }
+  25% {
+    background-position: 50% 0%, 70% 100%, 100% 0%, 30% 50%, 60% 70%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 100% 100%, 20% 0%, 80% 50%;
+  }
+  75% {
+    background-position: 30% 30%, 90% 30%, 50% 80%, 0% 20%, 70% 0%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0%, 50% 50%;
+  }
+}
+
+
+.main {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+
+.title {
+  font-size: 3em;
+  font-weight: 700;
+  color: #ffde59;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+
+.description {
+  font-size: 1.3em;
+  color: #b0b0b0;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+
+.buttons {
+  display: flex;
+  gap: 40px;
+}
+
+
+.animated-button {
+  padding: 18px 36px;
+  font-size: 20px;
+  border-radius: 12px;
+  border: 2px solid #ffde59;
+  background: linear-gradient(145deg, #1b1b1b, #2c2c2c);
+  color: #ffde59;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+
+.animated-button:hover {
+  background: linear-gradient(145deg, #ffde59, #ffc107);
+  color: #1a1a1a;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8);
+}
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
