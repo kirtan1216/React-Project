@@ -1,9 +1,14 @@
 import "./App.css";
+import FormWithOutYup from "./components/form-without-yup";
 
 function App() {
-  const [count, setCount] = useState(0);
 
-  return <></>;
+
+  return (
+    <>
+      <FormWithOutYup/>
+    </>
+  );
 }
 
 export default App;
