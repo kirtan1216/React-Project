@@ -8,11 +8,10 @@ import WelcomeMessage from "./components/WelcomeMessage";
 function App() {
   const [todoItems, settodoItems] = useState([]);
   const handleNewItem = (itemName, itemDueDate) => {
-    const newTodoItem = [
-      ...todoItems,
+    settodoItems((currValue) => [
+      ...currValue,
       { name: itemName, dueDate: itemDueDate },
-    ];
-    settodoItems(newTodoItem);
+    ]);
   };
 
   const handleDeleteItem = (todoItemName) => {
