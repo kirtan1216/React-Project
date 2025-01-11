@@ -13,8 +13,98 @@ const FormWithOutYup = () => {
     interests: [],
     birthDate: "",
   });
-  const handlesubmit = (e) => {
-    // e.preventDefault();
+
+  const [errors, setErrors] = useState({});
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhoneNumber = (phoneNumber) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
+  const isValidPassword = (password) => {
+    const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const numberRegex = /[0-9]/;
+    const upperCaseRegex = /[A-Z]/;
+    const lowerCaseRegex = /[a-z]/;
+    return (
+      password.length >= 8 &&
+      symbolRegex.test(password) &&
+      numberRegex.test(password) &&
+      upperCaseRegex.test(password) &&
+      lowerCaseRegex.test(password)
+    );
+  };
+
+  const isValidAge = (age) => {
+    return parseInt(age) >= 18 && parseInt(age) <= 100;
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!formData.firstName) {
+      newErrors.firstName = "First name required";
+    }
+    if (!formData.lastName) {
+      newErrors.lastName = "Last name required";
+    }
+    if (!formData.email) {
+      newErrors.email = "Email required";
+    } else if (!isValidEmail(formData.email)) {
+      newErrors.email = "Invalid Email format";
+    }
+    if (!formData.phoneNumber) {
+      newErrors.phoneNumber = "Phone number required";
+    } else if (!isValidPhoneNumber(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must be 10 digits";
+    }
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (!isValidPassword(formData.password)) {
+      newErrors.password =
+        "Password must be at least 8 characters long and conrain at least one symbol, one number, one uppercase letter , and one lowercase latter ";
+    }
+    if (!formData.conformPassword) {
+      newErrors.conformPassword = "conform password is required";
+    } else if (formData.conformPassword !== formData.password) {
+      newErrors.conformPassword = "Conform password must be same as password";
+    }
+    if (!formData.age) {
+      newErrors.birthDate = "Age is required";
+    } else if (!isValidAge(formData.age)) {
+      newErrors.age =
+        "You must be at least 18 years old and not older than 100 years";
+    }
+    if (!formData.gender) {
+      newErrors.gender = "Gender is required";
+    }
+    if (formData.interests.length === 0) {
+      newErrors.interests = "select at least one interest";
+    }
+    if (!formData.birthDate) {
+      newErrors.birthDate = "Birth date is required ";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  console.log(errors);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm();
+    if (isValid) {
+      console.log("Form submitted", formData);
+    } else {
+      console.log("Form Validation Failed");
+    }
   };
 
   const handleChange = (e) => {
@@ -43,7 +133,7 @@ const FormWithOutYup = () => {
   };
 
   return (
-    <form className="form" onSubmit={handlesubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <div>
         <label>First Name:</label>
         <input
@@ -53,6 +143,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your name"
           onChange={handleChange}
         />
+        {errors.firstName && <div className="error">{errors.firstName}</div>}
       </div>
       <div>
         <label>Last Name:</label>
@@ -63,6 +154,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your last name"
           onChange={handleChange}
         />
+        {errors.lastName && <div className="error">{errors.lastName}</div>}
       </div>
       <div>
         <label>Email:</label>
@@ -73,6 +165,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your email"
           onChange={handleChange}
         />
+        {errors.email && <div className="error">{errors.email}</div>}
       </div>
       <div>
         <label>Phone Number:</label>
@@ -83,6 +176,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your phone number"
           onChange={handleChange}
         />
+        {/* {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>} */}
       </div>
       <div>
         <label>Password:</label>
@@ -93,6 +187,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your password"
           onChange={handleChange}
         />
+        {errors.password && <div className="error">{errors.password}</div>}
       </div>
       <div>
         <label>Conform Password:</label>
@@ -103,6 +198,7 @@ const FormWithOutYup = () => {
           placeholder="conform your password"
           onChange={handleChange}
         />
+        {/* {errors.conformPassword && <div className="error">{errors.conformPassword}</div>} */}
       </div>
 
       <div>
@@ -114,6 +210,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your age"
           onChange={handleChange}
         />
+        {errors.age && <div className="error">{errors.age}</div>}
       </div>
       <div>
         <label>Gender:</label>
@@ -123,6 +220,7 @@ const FormWithOutYup = () => {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+        {errors.gender && <div className="error">{errors.gender}</div>}
       </div>
       <div>
         <label>Interests:</label>
@@ -153,6 +251,7 @@ const FormWithOutYup = () => {
           />
           Reading
         </label>
+        {errors.interests && <div className="error">{errors.interests}</div>}
       </div>
       <div>
         <label>Date of Birth:</label>
@@ -163,6 +262,7 @@ const FormWithOutYup = () => {
           placeholder="Enter your date of birth"
           onChange={handleChange}
         />
+        {errors.birthDate && <div className="error">{errors.birthDate}</div>}
       </div>
       <button type="submit">Submit</button>
     </form>
