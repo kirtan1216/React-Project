@@ -8,7 +8,7 @@ const FormWithYup = () => {
     email: "",
     phoneNumber: "",
     password: "",
-    conformPassword: "",
+    confirmPassword: "",
     age: "",
     gender: "",
     interests: [],
@@ -30,18 +30,19 @@ const FormWithYup = () => {
       .required("Password is required")
 
       .min(8, "Password must be at least 8 character")
-      .matches(
-        /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must conrain at least one symbol"
-      )
+      // .matches(
+      //   /[!@#$%^&*(),.?":{}|<>]/,
+      //   "Password must conrain at least one symbol"
+      // )
       .matches(/[0-9]/, "Password must one number")
-      .matches(/[A-Z]/, "Password must one uppercase letter ")
+      // .matches(/[A-Z]/, "Password must one uppercase letter ")
       .matches(/[a-z]/, "Password must one lowercase latter"),
-    conformPassword: Yup.string()
+    confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Password must match")
-      .required("Conform Password is requird"),
-    age: Yup.number(). required("Age is required")
-      
+      .required("Confirm Password is requird"),
+    age: Yup.number()
+      .required("Age is required")
+
       .typeError("Age must be a number")
       .min(18, "You must be at least 18 years old")
       .max(100, "You cannot be older than 100 years"),
@@ -58,12 +59,24 @@ const FormWithYup = () => {
       await validationSchema.validate(formData, { abortEarly: false });
       console.log("Form Submitted", formData);
     } catch (error) {
-        const newErrors = 
-        {}
-      error.inner.forEach(err=>{
-        newErrors[err.path]=err.message;
+      const newErrors = {};
+      error.inner.forEach((err) => {
+        newErrors[err.path] = err.message;
       });
       setErrors(newErrors);
+    }
+
+    const response = await fetch("http://127.0.0.1:3000/api/v1/form/userForm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json(); // Parse response
+    console.log("Server Response:", data);
+
+    if (!response.ok) {
+      throw new Error(data.message || "Something went wrong!");
     }
   };
 
@@ -78,7 +91,7 @@ const FormWithYup = () => {
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
 
-    const updatedInterests = [...formData.interests];
+    let updatedInterests = [...formData.interests];
     if (checked) {
       updatedInterests.push(name);
     } else {
@@ -136,7 +149,9 @@ const FormWithYup = () => {
           placeholder="Enter your phone number"
           onChange={handleChange}
         />
-        {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>}
+        {errors.phoneNumber && (
+          <div className="error">{errors.phoneNumber}</div>
+        )}
       </div>
       <div>
         <label>Password:</label>
@@ -150,15 +165,17 @@ const FormWithYup = () => {
         {errors.password && <div className="error">{errors.password}</div>}
       </div>
       <div>
-        <label>Conform Password:</label>
+        <label>Confirm Password:</label>
         <input
           type="password"
-          name="conformPassword"
-          value={formData.conformPassword}
-          placeholder="conform your password"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          placeholder="confirm your password"
           onChange={handleChange}
         />
-        {errors.conformPassword && <div className="error">{errors.conformPassword}</div>}
+        {errors.confirmPassword && (
+          <div className="error">{errors.confirmPassword}</div>
+        )}
       </div>
 
       <div>
@@ -175,10 +192,10 @@ const FormWithYup = () => {
       <div>
         <label>Gender:</label>
         <select name="gender" value={formData.gender} onChange={handleChange}>
-          {/* <option value="">Select Gender</option> */}
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
+          <option value="">Select Gender</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+          <option value="other">other</option>
         </select>
         {errors.gender && <div className="error">{errors.gender}</div>}
       </div>
